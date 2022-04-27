@@ -1,44 +1,51 @@
-# Towards end-to-end Cyberthreat Detection from Twitter using Multi-Task Learning 
+# Requirements
+- `3.6.1 <= python <= 3.8.x`
+- `torch == 1.5.1`
+- `scikit-learn == 1.0.2`
+- `tqdm == 4.63.0`
+- `pandas == 1.0.5`
+- `pytorch-crf == 0.7.2`
 
-This repository holds the data, source code and resulting model weights for the paper "Towards end-to-end Cyberthreat Detection from Twitter using Multi-Task Learning" to be presented at IJCNN 2020.
-
-# Train models by running
+# Running the Binary Classification Model
 ```
-python bin_classifier.py
-python ner_classifier.py
-python mt_classifier.py
-```
-# Example usage of a pretrained model
-```
-python mt_classifier.py -conf ckpts/mt/rnn_20210805172841/conf.json -load ckpts/mt/rnn_20210805172841/ckpt_step-265.pth -input <input_file>.json 
-```
-
-# Requierments
-torch == 1.5.1 </br>
-pandas == 1.0.5 </br>
-pytorch-crf == 0.7.2 </br>
-
-# Citation
-
-```
-@INPROCEEDINGS{9207159,
-  author={N. {Dionísio} and F. {Alves} and P. M. {Ferreira} and A. {Bessani}},
-  booktitle={2020 International Joint Conference on Neural Networks (IJCNN)}, 
-  title={Towards end-to-end Cyberthreat Detection from Twitter using Multi-Task Learning}, 
-  year={2020},
-  volume={},
-  number={},
-  pages={1-8},
-  doi={10.1109/IJCNN48605.2020.9207159}}
+python bin_classifier.py -conf conf/bin/cnn.json -save true
+python bin_classifier.py -conf conf/bin/cnn_rnn.json -save true
+python bin_classifier.py -conf conf/bin/rnn_cnn.json -save true
+python bin_classifier.py -conf conf/bin/rnn.json -save true
 ```
 
-# References
+# Running the Named Entity Recognition Model
+```
+python ner_classifier.py -conf conf/ner/cnn.json -save true
+python ner_classifier.py -conf conf/ner/cnn_rnn.json -save true
+python ner_classifier.py -conf conf/ner/rnn_cnn.json -save true
+python ner_classifier.py -conf conf/ner/rnn.json -save true
+```
 
-CRF module : https://github.com/kmkurn/pytorch-crf
+# Running the Multi-task Model
+```
+python mt_classifier.py -conf conf/mt/cnn.json -save true
+python mt_classifier.py -conf conf/mt/cnn_rnn.json -save true
+python mt_classifier.py -conf conf/mt/rnn_cnn.json -save true
+python mt_classifier.py -conf conf/mt/rnn.json -save true
+```
 
-@inproceedings{paszke2017automatic,
- title={Automatic Differentiation in {PyTorch}},
- author={Paszke, Adam and Gross, Sam and Chintala, Soumith and Chanan, Gregory and Yang, Edward and DeVito, Zachary and Lin, Zeming and Desmaison, Alban and Antiga, Luca and Lerer, Adam},
- booktitle={NIPS Autodiff Workshop},
- year={2017}
-}
+# Running Grid Search
+Running grid search will take a very long amount of time.
+
+```
+python grid_search.py -task bin -arch cnn
+python grid_search.py -task bin -arch cnn_rnn
+python grid_search.py -task bin -arch rnn_cnn
+python grid_search.py -task bin -arch rnn
+
+python grid_search.py -task ner -arch cnn
+python grid_search.py -task ner -arch cnn_rnn
+python grid_search.py -task ner -arch rnn_cnn
+python grid_search.py -task ner -arch rnn
+
+python grid_search.py -task mt -arch cnn
+python grid_search.py -task mt -arch cnn_rnn
+python grid_search.py -task mt -arch rnn_cnn
+python grid_search.py -task mt -arch rnn
+```
