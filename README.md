@@ -30,8 +30,15 @@ python mt_classifier.py -conf conf/mt/rnn_cnn.json -save true
 python mt_classifier.py -conf conf/mt/rnn.json -save true
 ```
 
+# Finding Model Results
+All model results will be stored in `ckpts`. `bin` corresponds to the binary classifier,
+`ner` corresponds to the named entity recognition model, and `mt` corresponds to the
+multi-task model.
+
 # Running Grid Search
-Running grid search will take a very long amount of time.
+Running grid search will take an extremely long amount of time. Results for grid search
+will be stored in `results`. If the folder does not exist, run the script and the folder
+will be created automatically.
 
 ```
 python grid_search.py -task bin -arch cnn
